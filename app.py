@@ -6,7 +6,7 @@ from flask_heroku import Heroku
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-import config
+# import config
 
 # class CustomerData(db.Model):
 #     __tablename__ = "CustomerData"
@@ -17,6 +17,14 @@ import config
 #     def __init__(self, customer_name, customer_email):
 #         self.customer_name = customer_name
 #         self.customer_email = customer_email
+
+# class CustomerDataSchema(ma.Schema):
+#     class Meta:
+#         fields = ("id", "customer_name", "customer_email")
+
+
+# customer_data_schema = CustomerDataSchema()
+# customers_data_schema = CustomerDataSchema(many=True)
 
 @app.route("/email-form", methods=["POST"])
 def email():

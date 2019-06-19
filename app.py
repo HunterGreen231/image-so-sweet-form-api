@@ -61,21 +61,21 @@ Referred By: {referredBy}<br/>
 Message: {customerMessage}<br/>
 ''')
 
-    # message = Mail(
-    #     from_email="image-so-sweet-website@gmail.com",
-    #     to_emails='webdev.huntergreen@gmail.com',
-    #     subject=(f'{firstName} {lastName}'),
-    #     html_content=content)
-    # try:
-    #     sg = SendGridAPIClient(config.SENDGRID_API_KEY)
-    #     response = sg.send(message)
-    #     print(response.status_code)
-    #     print(response.body)
-    #     print(response.headers)
-    # except Exception as e:
-    #     print(e)
+    message = Mail(
+        from_email="image-so-sweet-website@gmail.com",
+        to_emails='webdev.huntergreen@gmail.com',
+        subject=(f'{firstName} {lastName}'),
+        html_content=content)
+    try:
+        sg = SendGridAPIClient(config.SENDGRID_API_KEY)
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e)
 
-    return content
+    return success
 
 if __name__ == "__main__":
     app.debug = True

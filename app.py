@@ -39,15 +39,25 @@ customers_data_schema = CustomerDataSchema(many=True)
 @app.route("/email-form", methods=["POST"])
 def email():
 
-    childsName = request.json["childsName"]
+    childs_name = request.json["childsName"]
     email = request.json["email"]
-    fantasyTheme = request.json["fantasyTheme"]
-    firstName = request.json["firstName"]
-    lastName = request.json["lastName"]
+    fantasy_theme = request.json["fantasyTheme"]
+    first_name = request.json["firstName"]
+    last_name = request.json["lastName"]
     location = request.json["location"]
-    customerMessage = request.json["message"]
-    phoneNumber = request.json["phoneNumber"]
-    referredBy = request.json["referredBy"]
+    customer_message = request.json["message"]
+    phone_number = request.json["phoneNumber"]
+    referred_by = request.json["referredBy"]
+
+    joined_childs_name = ''.join(childsName)
+    joined_email = ''.join(email)
+    joined_fantasy_theme = ''.join(fantasyTheme)
+    joined_first_name = ''.join(firstName)
+    joined_last_name = ''.join(lastName)
+    joined_location = ''.join(location)
+    joined_customer_message = ''.join(customerMessage)
+    joined_phone_number = ''.join(phoneNumber)
+    joined_referred_by = ''.join(referredBy)
 
     content = (f'''
 Name:  {firstName}<br/>

@@ -71,7 +71,7 @@ Message: {customerMessage}<br/>
     # except Exception as e:
     #     print(e)
 
-    return request
+    return "Success"
 
 if __name__ == "__main__":
     app.debug = True

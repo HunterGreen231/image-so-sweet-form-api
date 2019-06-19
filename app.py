@@ -8,6 +8,11 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 # import config
 
+app = Flask(__name__)
+heroku = Heroku(app)
+
+CORS(app)
+
 # class CustomerData(db.Model):
 #     __tablename__ = "CustomerData"
 #     id = db.Column(db.Integer, primary_key=True)

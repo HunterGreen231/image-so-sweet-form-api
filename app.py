@@ -6,7 +6,7 @@ from flask_heroku import Heroku
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-import config
+from . import config
 
 app = Flask(__name__)
 heroku = Heroku(app)

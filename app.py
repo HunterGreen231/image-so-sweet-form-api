@@ -21,16 +21,18 @@ ma = Marshmallow(app)
 class CustomerData(db.Model):
     __tablename__ = "CustomerData"
     id = db.Column(db.Integer, primary_key=True)
-    customer_name = db.Column(db.String(30), nullable=False)
+    customer_first_name = db.Column(db.String(30), nullable=False)
+    customer_last_name = db.Column(db.String(30), nullable=False)
     customer_email = db.Column(db.String(50), nullable=False, unique=True)
 
-    def __init__(self, customer_name, customer_email):
-        self.customer_name = customer_name
+    def __init__(self, customer_first_name, customer_last_name, customer_email):
+        self.customer_first_name = customer_first_name
+        self.customer_last_name = customer_last_name
         self.customer_email = customer_email
 
 class CustomerDataSchema(ma.Schema):
     class Meta:
-        fields = ("id", "customer_name", "customer_email")
+        fields = ("id", "customer_first_name", "customer_email", "customer_last_name")
 
 
 customer_data_schema = CustomerDataSchema()
@@ -46,20 +48,27 @@ def get_customers():
 def email():
 
     childs_name = request.json["childsName"]
-    email = request.json["email"]
+    customer_email = request.json["email"]
     fantasy_theme = request.json["fantasyTheme"]
-    first_name = request.json["firstName"]
-    last_name = request.json["lastName"]
+    customer_first_name = request.json["firstName"]
+    customer_last_name = request.json["lastName"]
     location = request.json["location"]
     customer_message = request.json["message"]
     phone_number = request.json["phoneNumber"]
     referred_by = request.json["referredBy"]
 
+    record = CustomerData(customer_first_name, customer_last_name, customer_email)
+
+    db.session.add(record)
+    db.session.commit()
+
+    customer = CustomerData.query.get(record.id)
+
     joined_childs_name = ''.join(childs_name)
-    joined_email = ''.join(email)
+    joined_email = ''.join(customer_email)
     joined_fantasy_theme = ''.join(fantasy_theme)
-    joined_first_name = ''.join(first_name)
-    joined_last_name = ''.join(last_name)
+    joined_first_name = ''.join(customer_first_name)
+    joined_last_name = ''.join(customer_last_name)
     joined_location = ''.join(location)
     joined_customer_message = ''.join(customer_message)
     joined_phone_number = ''.join(phone_number)
@@ -91,7 +100,8 @@ def email():
     except Exception as e:
         print(e)
 
-    return "Success!"
+    return customer
+
 
 if __name__ == "__main__":
     app.debug = True

@@ -32,7 +32,7 @@ class CData(db.Model):
 
 class CDataSchema(ma.Schema):
     class Meta:
-        fields = ("id", "customer_first_name", "customer_email", "customer_last_name")
+        fields = ("id", "customer_first_name", "customer_last_name", "customer_email")
 
 
 customer_data_schema = CDataSchema()
@@ -56,27 +56,27 @@ def delete_customer(id):
 def email():
 
     childs_name = request.json["childsName"]
-    customer_email = request.json["email"]
+    email = request.json["email"]
     fantasy_theme = request.json["fantasyTheme"]
-    customer_first_name = request.json["firstName"]
-    customer_last_name = request.json["lastName"]
+    first_name = request.json["firstName"]
+    last_name = request.json["lastName"]
     location = request.json["location"]
     customer_message = request.json["message"]
     phone_number = request.json["phoneNumber"]
     referred_by = request.json["referredBy"]
 
     joined_childs_name = ''.join(childs_name)
-    joined_email = ''.join(customer_email)
+    joined_email = ''.join(email)
     joined_fantasy_theme = ''.join(fantasy_theme)
-    joined_first_name = ''.join(customer_first_name)
-    joined_last_name = ''.join(customer_last_name)
+    joined_first_name = ''.join(first_name)
+    joined_last_name = ''.join(last_name)
     joined_location = ''.join(location)
     joined_customer_message = ''.join(customer_message)
     joined_phone_number = ''.join(phone_number)
     joined_referred_by = ''.join(referred_by)
 
     content = (f'''
-<b>First Name</b>:          {joined_first_name}<br/><br/>
+<b>First Name</b>:    {joined_first_name}<br/><br/>
 <b>Last Name</b>:     {joined_last_name}<br/><br/>
 <b>Childs Name</b>:   {joined_childs_name}<br/><br/>
 <b>Email</b>:         {joined_email}<br/><br/>
@@ -102,12 +102,12 @@ def email():
         print(e)
 
 
-    record = CData(customer_first_name, customer_last_name, customer_email)
+    record = CData(first_name, last_name, email)
 
     db.session.add(record)
     db.session.commit()
 
-    return record
+    return "Sucess!"
 
 
 if __name__ == "__main__":

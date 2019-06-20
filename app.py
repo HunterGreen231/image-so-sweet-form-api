@@ -11,7 +11,7 @@ import config
 app = Flask(__name__)
 heroku = Heroku(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://tgnnylatiylbkr:57a6fe7c950559ba4927f4e33f81b3f92135b88d5b7433e2b896788fb1b46267@ec2-23-21-91-183.compute-1.amazonaws.com:5432/de7jdvn8id5jls"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://kzskkdypuiznyz:27b9e23d656a28aa8b139b45e398e8bc62f8b1d11e04e649af806744e9ab30cd@ec2-54-83-36-37.compute-1.amazonaws.com:5432/d3gm5tplla4f98"
 
 CORS(app)
 
@@ -23,7 +23,7 @@ class CustomerData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_first_name = db.Column(db.String(30), nullable=False)
     customer_last_name = db.Column(db.String(30), nullable=False)
-    customer_email = db.Column(db.String(50), nullable=False, unique=True)
+    customer_email = db.Column(db.String(50), nullable=False)
 
     def __init__(self, customer_first_name, customer_last_name, customer_email):
         self.customer_first_name = customer_first_name
@@ -42,7 +42,15 @@ customers_data_schema = CustomerDataSchema(many=True)
 def get_customers():
     all_customers = CustomerData.query.all()
     result = customers_data_schema.dump(all_customers)
+
     return jsonify(result.data)
+
+@app.route("/customer/<id>", methods=["DELETE"])
+def delete_customer(id):
+    record = CustomerData.query.get(id)
+    db.session.delete(record)
+    db.session.commit()
+    return jsonify("Record deleted")
 
 @app.route("/email-form", methods=["POST"])
 def email():
@@ -56,13 +64,6 @@ def email():
     customer_message = request.json["message"]
     phone_number = request.json["phoneNumber"]
     referred_by = request.json["referredBy"]
-
-    record = CustomerData(customer_first_name, customer_last_name, customer_email)
-
-    db.session.add(record)
-    db.session.commit()
-
-    customer = CustomerData.query.get(record.id)
 
     joined_childs_name = ''.join(childs_name)
     joined_email = ''.join(customer_email)
@@ -99,6 +100,14 @@ def email():
         print(response.headers)
     except Exception as e:
         print(e)
+
+
+    record = CustomerData(customer_first_name, customer_last_name, customer_email)
+
+    db.session.add(record)
+    db.session.commit()
+
+    customer = CustomerData.query.get(record.id)
 
     return customer
 

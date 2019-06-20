@@ -49,15 +49,15 @@ def email():
     phone_number = request.json["phoneNumber"]
     referred_by = request.json["referredBy"]
 
-    joined_childs_name = ''.join(childsName)
+    joined_childs_name = ''.join(childs_name)
     joined_email = ''.join(email)
-    joined_fantasy_theme = ''.join(fantasyTheme)
-    joined_first_name = ''.join(firstName)
-    joined_last_name = ''.join(lastName)
+    joined_fantasy_theme = ''.join(fantasy_theme)
+    joined_first_name = ''.join(first_name)
+    joined_last_name = ''.join(last_name)
     joined_location = ''.join(location)
-    joined_customer_message = ''.join(customerMessage)
-    joined_phone_number = ''.join(phoneNumber)
-    joined_referred_by = ''.join(referredBy)
+    joined_customer_message = ''.join(customer_message)
+    joined_phone_number = ''.join(phone_number)
+    joined_referred_by = ''.join(referred_by)
 
     content = (f'''
 Name:  {joined_first_name}<br/>
@@ -74,7 +74,7 @@ Message: {joined_customer_message}<br/>
     message = Mail(
         from_email="image-so-sweet-website@gmail.com",
         to_emails='webdev.huntergreen@gmail.com',
-        subject=(f'{firstName} {lastName}'),
+        subject=(f'{joined_first_name} {joined_last_name}'),
         html_content=content)
     try:
         sg = SendGridAPIClient(config.SENDGRID_API_KEY)

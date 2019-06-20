@@ -102,7 +102,7 @@ def email():
         print(e)
 
 
-    record = CData(str(first_name), str(last_name), str(email))
+    record = CData(joined_first_name, joined_last_name, joined_email)
 
     db.session.add(record)
     db.session.commit()

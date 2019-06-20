@@ -87,25 +87,29 @@ def email():
 <b>Message</b>:       {joined_customer_message}<br/><br/>
 ''')
 
-    message = Mail(
-        from_email="image-so-sweet-website@gmail.com",
-        to_emails='webdev.huntergreen@gmail.com',
-        subject=(f'{joined_first_name} {joined_last_name}'),
-        html_content=content)
-    try:
-        sg = SendGridAPIClient(config.SENDGRID_API_KEY)
-        response = sg.send(message)
-        print(response.status_code)
-        print(response.body)
-        print(response.headers)
-    except Exception as e:
-        print(e)
+    # message = Mail(
+    #     from_email="image-so-sweet-website@gmail.com",
+    #     to_emails='webdev.huntergreen@gmail.com',
+    #     subject=(f'{joined_first_name} {joined_last_name}'),
+    #     html_content=content)
+    # try:
+    #     sg = SendGridAPIClient(config.SENDGRID_API_KEY)
+    #     response = sg.send(message)
+    #     print(response.status_code)
+    #     print(response.body)
+    #     print(response.headers)
+    # except Exception as e:
+    #     print(e)
 
 
-    record = CData(joined_first_name, joined_last_name, joined_email)
+    all_CData = Cdata.query.all()
 
-    db.session.add(record)
-    db.session.commit()
+    print("All CData", all_CData)
+
+    # record = CData(joined_first_name, joined_last_name, joined_email)
+
+    # db.session.add(record)
+    # db.session.commit()
 
     return "Sucess!"
 

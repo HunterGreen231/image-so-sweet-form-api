@@ -11,7 +11,7 @@ import config
 app = Flask(__name__)
 heroku = Heroku(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://lwordjtgmiscda:9478bc19e2ab4f10fa3d98091018a590d455ec323d82e383f72675b7bf789821@ec2-174-129-27-158.compute-1.amazonaws.com:5432/dbr1fiolqu9b91"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://tgnnylatiylbkr:57a6fe7c950559ba4927f4e33f81b3f92135b88d5b7433e2b896788fb1b46267@ec2-23-21-91-183.compute-1.amazonaws.com:5432/de7jdvn8id5jls"
 
 CORS(app)
 
@@ -75,7 +75,7 @@ def email():
     joined_referred_by = ''.join(referred_by)
 
     content = (f'''
-<b>Name</b>:          {joined_first_name}<br/><br/>
+<b>First Name</b>:          {joined_first_name}<br/><br/>
 <b>Last Name</b>:     {joined_last_name}<br/><br/>
 <b>Childs Name</b>:   {joined_childs_name}<br/><br/>
 <b>Email</b>:         {joined_email}<br/><br/>

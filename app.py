@@ -11,7 +11,7 @@ import config
 app = Flask(__name__)
 heroku = Heroku(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://lnazpnaoydrswi:5de9beb4ee2d75dce60631d9c7273cb77444e619525d7f7a471a6654f39a8164@ec2-75-101-147-226.compute-1.amazonaws.com:5432/dbtlkhnfral2gu"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://xiukopvxaxwbnf:c9e31998729bf0b33a72aad3594cfdb45e906e61f70da2fe39436a96c8f27892@ec2-23-23-182-18.compute-1.amazonaws.com:5432/db2cci5dkr8eea"
 
 CORS(app)
 

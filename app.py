@@ -107,9 +107,7 @@ def email():
     db.session.add(record)
     db.session.commit()
 
-    customer = CData.query.get(record.id)
-
-    return customer
+    return record
 
 
 if __name__ == "__main__":

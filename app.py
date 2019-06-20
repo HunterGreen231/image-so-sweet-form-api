@@ -104,7 +104,8 @@ def email():
 
     all_CData = CData.query.all()
 
-    print("All CData", all_CData)
+    for data in all_CData:
+        print data
 
     # record = CData(joined_first_name, joined_last_name, joined_email)
 

@@ -36,6 +36,12 @@ class CustomerDataSchema(ma.Schema):
 customer_data_schema = CustomerDataSchema()
 customers_data_schema = CustomerDataSchema(many=True)
 
+@app.route("/customers", methods=["GET"])
+def get_customers():
+    all_customers = CustomerData.query.all()
+    result = customers_data_schema.dump(all_customers)
+    return jsonify(result.data)
+
 @app.route("/email-form", methods=["POST"])
 def email():
 

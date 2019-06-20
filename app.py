@@ -60,15 +60,23 @@ def email():
     joined_referred_by = ''.join(referred_by)
 
     content = (f'''
-Name:  {joined_first_name}<br/>
-Last Name: {joined_last_name}<br/>
-Childs Name: {joined_childs_name}<br/>
-Email: {joined_email}<br/>
-Phone Number: {joined_phone_number}<br/>
-Location: {joined_location}<br/>
-Fantasy Theme: {joined_fantasy_theme}<br/>
-Referred By: {joined_referred_by}<br/>
-Message: {joined_customer_message}<br/>
+<b>Name</b>:          {joined_first_name}<br/>
+
+<b>Last Name</b>:     {joined_last_name}<br/>
+
+<b>Childs Name</b>:   {joined_childs_name}<br/>
+
+<b>Email</b>:         {joined_email}<br/>
+
+<b>Phone Number</b>:  {joined_phone_number}<br/>
+
+<b>Location</b>:      {joined_location}<br/>
+
+<b>Fantasy Theme</b>: {joined_fantasy_theme}<br/>
+
+<b>Referred By</b>:   {joined_referred_by}<br/>
+
+<b>Message</b>:       {joined_customer_message}<br/>
 ''')
 
     message = Mail(

@@ -23,7 +23,7 @@ class CData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_first_name = db.Column(db.String(30), nullable=False)
     customer_last_name = db.Column(db.String(30), nullable=False)
-    customer_email = db.Column(db.String(50), nullable=False)
+    customer_email = db.Column(db.String(50), nullable=False, unique=True)
 
     def __init__(self, customer_first_name, customer_last_name, customer_email):
         self.customer_first_name = customer_first_name
@@ -87,30 +87,25 @@ def email():
 <b>Message</b>:       {joined_customer_message}<br/><br/>
 ''')
 
-    # message = Mail(
-    #     from_email="image-so-sweet-website@gmail.com",
-    #     to_emails='webdev.huntergreen@gmail.com',
-    #     subject=(f'{joined_first_name} {joined_last_name}'),
-    #     html_content=content)
-    # try:
-    #     sg = SendGridAPIClient(config.SENDGRID_API_KEY)
-    #     response = sg.send(message)
-    #     print(response.status_code)
-    #     print(response.body)
-    #     print(response.headers)
-    # except Exception as e:
-    #     print(e)
+    message = Mail(
+        from_email="image-so-sweet-website@gmail.com",
+        to_emails='webdev.huntergreen@gmail.com',
+        subject=(f'{joined_first_name} {joined_last_name}'),
+        html_content=content)
+    try:
+        sg = SendGridAPIClient(config.SENDGRID_API_KEY)
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e)
 
 
-    all_CData = CData.query.all()
+    record = CData(joined_first_name, joined_last_name, joined_email)
 
-    for data in all_CData:
-        print(data)
-
-    # record = CData(joined_first_name, joined_last_name, joined_email)
-
-    # db.session.add(record)
-    # db.session.commit()
+    db.session.add(record)
+    db.session.commit()
 
     return "Sucess!"
 

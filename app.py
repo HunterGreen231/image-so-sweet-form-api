@@ -102,7 +102,7 @@ def email():
     #     print(e)
 
 
-    all_CData = Cdata.query.all()
+    all_CData = CData.query.all()
 
     print("All CData", all_CData)
 

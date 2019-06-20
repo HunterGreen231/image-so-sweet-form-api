@@ -11,15 +11,15 @@ import config
 app = Flask(__name__)
 heroku = Heroku(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://kzskkdypuiznyz:27b9e23d656a28aa8b139b45e398e8bc62f8b1d11e04e649af806744e9ab30cd@ec2-54-83-36-37.compute-1.amazonaws.com:5432/d3gm5tplla4f98"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://lnazpnaoydrswi:5de9beb4ee2d75dce60631d9c7273cb77444e619525d7f7a471a6654f39a8164@ec2-75-101-147-226.compute-1.amazonaws.com:5432/dbtlkhnfral2gu"
 
 CORS(app)
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-class CustomerData(db.Model):
-    __tablename__ = "CustomerData"
+class CData(db.Model):
+    __tablename__ = "CustomerDataTable"
     id = db.Column(db.Integer, primary_key=True)
     customer_first_name = db.Column(db.String(30), nullable=False)
     customer_last_name = db.Column(db.String(30), nullable=False)
@@ -30,24 +30,24 @@ class CustomerData(db.Model):
         self.customer_last_name = customer_last_name
         self.customer_email = customer_email
 
-class CustomerDataSchema(ma.Schema):
+class CDataSchema(ma.Schema):
     class Meta:
         fields = ("id", "customer_first_name", "customer_email", "customer_last_name")
 
 
-customer_data_schema = CustomerDataSchema()
-customers_data_schema = CustomerDataSchema(many=True)
+customer_data_schema = CDataSchema()
+customers_data_schema = CDataSchema(many=True)
 
 @app.route("/customers", methods=["GET"])
 def get_customers():
-    all_customers = CustomerData.query.all()
+    all_customers = CData.query.all()
     result = customers_data_schema.dump(all_customers)
 
     return jsonify(result.data)
 
 @app.route("/customer/<id>", methods=["DELETE"])
 def delete_customer(id):
-    record = CustomerData.query.get(id)
+    record = CData.query.get(id)
     db.session.delete(record)
     db.session.commit()
     return jsonify("Record deleted")
@@ -102,12 +102,12 @@ def email():
         print(e)
 
 
-    record = CustomerData(customer_first_name, customer_last_name, customer_email)
+    record = CData(customer_first_name, customer_last_name, customer_email)
 
     db.session.add(record)
     db.session.commit()
 
-    customer = CustomerData.query.get(record.id)
+    customer = CData.query.get(record.id)
 
     return customer
 

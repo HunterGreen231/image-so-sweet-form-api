@@ -11,7 +11,7 @@ import config
 app = Flask(__name__)
 heroku = Heroku(app)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://xiukopvxaxwbnf:c9e31998729bf0b33a72aad3594cfdb45e906e61f70da2fe39436a96c8f27892@ec2-23-23-182-18.compute-1.amazonaws.com:5432/db2cci5dkr8eea"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://iokvfujvrrwbyr:b71723eb97c4cc719cba384bc12bc705c28a9ab27457a3e55f460cb0c1f99e1b@ec2-174-129-29-101.compute-1.amazonaws.com:5432/d1cb7ji654ami2"
 
 CORS(app)
 
@@ -23,7 +23,7 @@ class CData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     customer_first_name = db.Column(db.String(30), nullable=False)
     customer_last_name = db.Column(db.String(30), nullable=False)
-    customer_email = db.Column(db.String(50), nullable=False, unique=True)
+    customer_email = db.Column(db.String(50), nullable=False)
 
     def __init__(self, customer_first_name, customer_last_name, customer_email):
         self.customer_first_name = customer_first_name
